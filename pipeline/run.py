@@ -21,6 +21,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE = Path(__file__).parent.parent
+sys.path.insert(0, str(BASE))  # allow `from pipeline...` imports when run as a script
+
 LOG_DIR = BASE / "logs"
 LOG_DIR.mkdir(exist_ok=True)
 
