@@ -1,4 +1,4 @@
-name: AI Digest Pipeline
+name: Cavalry News Digest Pipeline
 
 on:
   schedule:
