@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>China — Cavalry News Digest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="../index.html" class="masthead">
+      <span class="masthead-mark">CND</span>
+      <span class="masthead-text">
+        <span class="masthead-title">Cavalry News Digest</span>
+        <span class="masthead-tagline">Automated monitoring &middot; AI fraud, pharma, Meta, data centers, and China</span>
+      </span>
+    </a>
+    <nav>
+      <a href="../pillar/ai_fraud.html">AI Fraud</a><a href="../pillar/china.html">China</a><a href="../pillar/data_centers.html">Data Centers</a><a href="../pillar/meta.html">Meta</a><a href="../pillar/pharma.html">Pharma</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure">
+  <span class="disclosure-label">Notice</span> Summaries on this site are AI-generated from the linked source. A link does not imply endorsement of that source.
+</div>
+
+<main>
+
+<section class="pillar-page-header">
+  <h1>China</h1>
+  <div class="date-filter">
+    <label for="date-filter-select">Show:</label>
+    <select id="date-filter-select" onchange="filterByDate(this.value)">
+      <option value="all">All time</option>
+      <option value="1">Last 24 hours</option>
+      <option value="7">Last 7 days</option>
+      <option value="30">Last 30 days</option>
+    </select>
+  </div>
+</section>
+
+
+<h2 class="section-heading">Articles</h2>
+<ul class="item-list" id="article-list">
+  
+  <li class="item" data-published="2026-06-30T08:55:22+00:00">
+    
+    <a class="item-title" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxPMmRYYVFRR0pYUExod3VQQS0yUGVhTWx2SkhCdHE1UnRoOC1DaVlkMUdtdk9uTFlWcXoyWmpIemNnbjViem1ydW83ZGNRTTJBT1ppaF9SczNreXo3RmlHblBHbHFOU09YU3h0U2N2QmZGZ0Rqbkd0aDFpNGRITkVzNGVKSnlnbHYzcW5GZWVpOF9fU3ktbWVIbGt1UzladXB1ckE0QVpUbFEzdEI4MVJSQUJ3?oc=5" rel="noopener noreferrer">Chinese AI, chip firms are driving an onshore IPO rebound - Reuters</a>
+    <p class="item-summary">Companies in China&#39;s AI and semiconductor sectors are fueling a recovery in domestic initial public offerings.</p>
+    <p class="item-meta">Reuters &middot; Jun 30, 2026 08:55</p>
+  </li>
+  
+  <li class="item" data-published="2026-06-29T04:39:00+00:00">
+    <span class="badge">HIGH SIGNIFICANCE</span>
+    <a class="item-title" href="https://news.google.com/rss/articles/CBMikgFBVV95cUxNNHUwNUNKRHR5ZkZfZXlWcVpTb1BSQXd0U0RDT3Z2UVA1ckJ1b1FwSHZmVnhOTTAyejZveTRsODZtOTE4RXVzX3VDN0pDNGsxVjFVWnFYVHFvRUV2SUk0S3RaZUVTcm5oeXB2WEpsSmRJMzE4VnRyRnZTcG5xdmotTGtEcjRpZVJodG1URXVGYm5qQQ?oc=5" rel="noopener noreferrer">Nvidia’s AI chip sales in China stall, as local chipmakers like Huawei take the lead - AP News</a>
+    <p class="item-summary">Nvidia&#39;s sales of AI chips in China have slowed as domestic manufacturers such as Huawei gain market share.</p>
+    <p class="item-meta">AP News &middot; Jun 29, 2026 04:39</p>
+  </li>
+  
+</ul>
+
+
+
+
+<script>
+function filterByDate(rangeDays) {
+  var now = new Date();
+  document.querySelectorAll('.item-list .item').forEach(function (el) {
+    if (rangeDays === 'all') { el.style.display = ''; return; }
+    var published = new Date(el.getAttribute('data-published'));
+    var cutoff = new Date(now.getTime() - (parseInt(rangeDays, 10) * 24 * 60 * 60 * 1000));
+    el.style.display = (published >= cutoff) ? '' : 'none';
+  });
+}
+</script>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-updated">Last updated Jun 30, 2026 14:40 UTC</p>
+    <p class="footer-links"><a href="../about.html">About this site</a></p>
+  </div>
+</footer>
+</body>
+</html>
