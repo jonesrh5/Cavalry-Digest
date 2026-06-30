@@ -1,0 +1,22 @@
+slug: ai_fraud
+name: "AI Fraud"
+
+# Search queries fed to Google News RSS / NewsAPI
+topics:
+  - "deepfake scam fraud"
+  - "AI-generated phishing attack"
+  - "voice cloning fraud"
+  - "AI identity theft"
+  - "fraudulent AI products"
+  - "synthetic media fraud"
+  - "AI impersonation scam"
+  - "deepfake financial fraud"
+  - "AI romance scam"
+  - "artificial intelligence fraud detection"
+
+definition: |
+  Articles substantively about fraud, scams, or deception that use artificial
+  intelligence: deepfake-enabled fraud, AI voice cloning scams, AI-generated
+  phishing, synthetic identity fraud, fraudulent AI products or claims, and
+  enforcement actions against these. Must center on the fraud/deception, not
+  merely mention AI.

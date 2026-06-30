@@ -1,0 +1,20 @@
+slug: meta
+name: "Meta"
+
+# NOTE: "Meta" here means Meta Platforms (Facebook, Instagram, WhatsApp,
+# Reality Labs) — the company. Default assumption per spec; flagged for
+# the user to refine if a broader sense of "meta" was intended.
+topics:
+  - "Meta Platforms"
+  - "Meta antitrust regulation"
+  - "Meta AI initiative"
+  - "Facebook Instagram policy"
+  - "WhatsApp Meta"
+  - "Meta Reality Labs"
+  - "Meta earnings business"
+
+definition: |
+  Articles substantively about Meta Platforms (Facebook, Instagram, WhatsApp,
+  Reality Labs): corporate actions, AI initiatives, regulatory and antitrust
+  matters, content/platform policy, and major product or business
+  developments. Must be about the company, not merely mention it in passing.

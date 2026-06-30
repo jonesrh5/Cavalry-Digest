@@ -1,0 +1,53 @@
+name: AI Digest Pipeline
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"   # every 2 hours
+  workflow_dispatch:          # manual trigger from GitHub UI
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write         # needed to commit data/digest.db and docs/
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Never echo secrets into logs — env vars are passed directly to the
+      # process, not printed, and pipeline code never logs key values.
+      - name: Run pipeline (fetch, score, summarize, store) and rebuild site
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+        run: python pipeline/run.py
+
+      - name: Copy generated site into docs/ for GitHub Pages
+        run: |
+          rm -rf docs
+          mkdir -p docs
+          cp -r site/dist/. docs/
+
+      - name: Commit updated database and site
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/digest.db docs
+          git diff --cached --quiet || git commit -m "chore: update digest.db and rebuild site [skip ci]"
+          git push

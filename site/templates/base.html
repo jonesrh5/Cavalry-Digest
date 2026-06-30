@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Cavalry News Digest{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}static/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="{{ root }}index.html" class="masthead">
+      <span class="masthead-mark">CND</span>
+      <span class="masthead-text">
+        <span class="masthead-title">Cavalry News Digest</span>
+        <span class="masthead-tagline">Automated monitoring &middot; AI fraud, pharma, Meta, data centers, and China</span>
+      </span>
+    </a>
+    <nav>
+      {% for p in pillars %}<a href="{{ root }}pillar/{{ p.slug }}.html">{{ p.name }}</a>{% endfor %}
+      <a href="{{ root }}about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure">
+  <span class="disclosure-label">Notice</span> Summaries on this site are AI-generated from the linked source. A link does not imply endorsement of that source.
+</div>
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-updated">Last updated {{ last_updated }} UTC</p>
+    <p class="footer-links"><a href="{{ root }}about.html">About this site</a></p>
+  </div>
+</footer>
+</body>
+</html>

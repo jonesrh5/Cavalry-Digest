@@ -1,0 +1,24 @@
+request_timeout: 15           # seconds per HTTP request
+lookback_hours: 48             # drop anything older than this at fetch time
+enforce_source_allowlist: true # set false to disable article domain filtering
+
+# Global relevance thresholds. Individual pillars (config/pillars/*.yaml) may
+# override either key; these are the defaults when a pillar doesn't.
+threshold: 5
+high_significance_threshold: 8
+
+# How many of each pillar's most recent items show on the home page card.
+home_items_per_pillar: 5
+
+# How many items a pillar page lists before truncating (newest first).
+pillar_page_limit: 500
+
+# Legacy email digest — disabled. The renderer/sender in email/ are kept
+# so this can be flipped on later (e.g. a digest that links back to the
+# site) without a rewrite. Toggling `enabled: true` is the only change
+# needed to re-enable it.
+email:
+  enabled: false
+  mode: daily        # "daily" or "every_run"
+  send_hour: 7        # UTC hour for daily send
+  max_items: 25

@@ -1,0 +1,79 @@
+# Approved source domains for Cavalry News Digest (AI fraud, pharma, Meta, data centers, China).
+# Rules: one domain per line, case-insensitive.
+# Subdomains are included automatically (feeds.reuters.com matches reuters.com).
+# Lines starting with # and blank lines are ignored.
+
+# ── Wire services ────────────────────────────────────────────────────────────
+reuters.com
+apnews.com
+bloomberg.com
+afp.com
+
+# ── Major US national newspapers ─────────────────────────────────────────────
+nytimes.com
+washingtonpost.com
+wsj.com
+usatoday.com
+latimes.com
+politico.com
+axios.com
+
+# ── Major broadcast & cable news ─────────────────────────────────────────────
+nbcnews.com
+cbsnews.com
+abcnews.go.com
+cnn.com
+npr.org
+pbs.org
+bbc.com
+bbc.co.uk
+
+# ── Major business & financial press ─────────────────────────────────────────
+ft.com
+cnbc.com
+forbes.com
+fortune.com
+businessinsider.com
+marketwatch.com
+economist.com
+
+# ── Reputable technology press ────────────────────────────────────────────────
+wired.com
+theverge.com
+arstechnica.com
+techcrunch.com
+technologyreview.com
+404media.co
+
+# ── Additional reputable outlets ─────────────────────────────────────────────
+theguardian.com
+neurosciencenews.com
+techtimes.com
+
+# ── Cybersecurity & fraud specialist outlets ──────────────────────────────────
+krebsonsecurity.com
+bleepingcomputer.com
+therecord.media
+darkreading.com
+securityweek.com
+
+# ── Official / government primary sources ─────────────────────────────────────
+ftc.gov
+justice.gov
+sec.gov
+fbi.gov
+ic3.gov
+cisa.gov
+treasury.gov
+consumerfinance.gov
+
+# ── Data center / energy infrastructure specialist outlets ────────────────────
+datacenterdynamics.com
+datacenterknowledge.com
+utilitydive.com
+spglobal.com
+
+# ── Labor market / workforce specialist outlets ────────────────────────────────
+hrdive.com
+shrm.org
+bls.gov

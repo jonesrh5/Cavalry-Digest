@@ -1,0 +1,136 @@
+"""
+Sample data for previewing the site layout without a populated database.
+Used by `python site/generate.py --sample`. Spans all five pillars plus one
+video item (to exercise the "Clips" subheading) — none of this is persisted.
+"""
+
+from datetime import datetime, timedelta, timezone
+
+
+def _iso(hours_ago: float) -> str:
+    return (datetime.now(timezone.utc) - timedelta(hours=hours_ago)).isoformat()
+
+
+SAMPLE_ITEMS = [
+    {
+        "title": "CEO Voice Cloned in $25M Wire Fraud at Hong Kong Bank",
+        "url": "https://example.com/voice-clone-fraud",
+        "source": "Reuters",
+        "published_at": _iso(3),
+        "kind": "article",
+        "pillar": "ai_fraud",
+        "score": 9,
+        "high_significance": 1,
+        "summary": "Criminals used AI voice-cloning software to impersonate a company executive and authorize a $25 million wire transfer.",
+    },
+    {
+        "title": "Deepfake Identity Theft Ring Busted Across Three States",
+        "url": "https://example.com/deepfake-id-ring",
+        "source": "AP News",
+        "published_at": _iso(20),
+        "kind": "article",
+        "pillar": "ai_fraud",
+        "score": 8,
+        "high_significance": 1,
+        "summary": "Federal prosecutors charged eight people for running a synthetic-identity fraud ring that affected more than 120 victims.",
+    },
+    {
+        "title": "FDA Approves New Once-Weekly Insulin Formulation",
+        "url": "https://example.com/fda-insulin-approval",
+        "source": "STAT News",
+        "published_at": _iso(8),
+        "kind": "article",
+        "pillar": "pharma",
+        "score": 7,
+        "high_significance": 0,
+        "summary": "The FDA approved a once-weekly insulin injection intended to reduce daily dosing burden for type 2 diabetes patients.",
+    },
+    {
+        "title": "Generic Drug Maker Settles Price-Fixing Case for $400M",
+        "url": "https://example.com/generic-price-fixing-settlement",
+        "source": "Reuters",
+        "published_at": _iso(30),
+        "kind": "article",
+        "pillar": "pharma",
+        "score": 8,
+        "high_significance": 1,
+        "summary": "A generics manufacturer agreed to pay $400 million to settle federal allegations of coordinated price-fixing on common medications.",
+    },
+    {
+        "title": "Meta Expands AI Chatbot Access to WhatsApp Business Accounts",
+        "url": "https://example.com/meta-whatsapp-ai",
+        "source": "The Verge",
+        "published_at": _iso(5),
+        "kind": "article",
+        "pillar": "meta",
+        "score": 7,
+        "high_significance": 0,
+        "summary": "Meta is rolling out AI chatbot tools to WhatsApp Business accounts, letting merchants automate customer responses.",
+    },
+    {
+        "title": "EU Regulators Open New Antitrust Probe Into Meta Ad Practices",
+        "url": "https://example.com/eu-meta-antitrust",
+        "source": "Financial Times",
+        "published_at": _iso(40),
+        "kind": "article",
+        "pillar": "meta",
+        "score": 8,
+        "high_significance": 1,
+        "summary": "EU regulators opened a fresh antitrust investigation into how Meta bundles advertising data across its platforms.",
+    },
+    {
+        "title": "Hyperscaler Commits $10B to New Texas Data Center Campus",
+        "url": "https://example.com/texas-data-center-investment",
+        "source": "Bloomberg",
+        "published_at": _iso(12),
+        "kind": "article",
+        "pillar": "data_centers",
+        "score": 8,
+        "high_significance": 1,
+        "summary": "A major cloud provider announced a $10 billion data center campus in Texas, citing rising demand for AI training capacity.",
+    },
+    {
+        "title": "Local Officials Push Back on Data Center Water Usage Permits",
+        "url": "https://example.com/data-center-water-pushback",
+        "source": "The Guardian",
+        "published_at": _iso(26),
+        "kind": "article",
+        "pillar": "data_centers",
+        "score": 6,
+        "high_significance": 0,
+        "summary": "County officials are reconsidering water permits for a proposed data center after residents raised supply concerns.",
+    },
+    {
+        "title": "Chinese State-Linked Group Used AI Tools to Run Phishing Campaign, Google Says",
+        "url": "https://example.com/china-ai-phishing-google",
+        "source": "Reuters",
+        "published_at": _iso(15),
+        "kind": "article",
+        "pillar": "china",
+        "score": 9,
+        "high_significance": 1,
+        "summary": "Google said it disrupted a China-based group that used its AI models to generate phishing lures at scale.",
+    },
+    {
+        "title": "Chinese Firm Acquires Stake in European Data Center Operator",
+        "url": "https://example.com/china-data-center-stake",
+        "source": "Financial Times",
+        "published_at": _iso(33),
+        "kind": "article",
+        "pillar": "china",
+        "score": 7,
+        "high_significance": 0,
+        "summary": "A Chinese investment firm acquired a minority stake in a European data center operator, drawing scrutiny from regulators.",
+    },
+    {
+        "title": "How Voice-Cloning Scams Work — A Walkthrough of Recent Cases",
+        "url": "https://example.com/voice-clone-walkthrough-video",
+        "source": "Cybersecurity Explained",
+        "published_at": _iso(10),
+        "kind": "video",
+        "pillar": "ai_fraud",
+        "score": 7,
+        "high_significance": 0,
+        "summary": "A security researcher walks through several recent voice-cloning fraud cases and how the calls were constructed.",
+    },
+]

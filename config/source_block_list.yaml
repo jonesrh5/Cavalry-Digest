@@ -1,0 +1,10 @@
+# Sources blocked across every pillar, regardless of score.
+# Case-insensitive substring match against the item's source name.
+# These are press-release distribution wires, not actual reporting.
+block:
+  - "vocal.media"
+  - "prweb.com"
+  - "businesswire.com"
+  - "prnewswire.com"
+  - "globenewswire.com"
+  - "einpresswire.com"

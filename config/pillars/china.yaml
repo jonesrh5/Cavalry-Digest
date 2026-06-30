@@ -1,0 +1,30 @@
+slug: china
+name: "China"
+
+# Cross-cutting pillar: China's involvement within the four topic areas above.
+# Held to the exact same factual/sourcing standard as every other pillar —
+# selected for factual relevance, not for tone, alarm, or any predetermined
+# conclusion. See score.py / pipeline/run.py for the overlap-resolution rule
+# (an item found by both this pillar's search and a topic pillar's search is
+# scored against both definitions and assigned to whichever scores highest).
+topics:
+  - "China AI fraud scam"
+  - "Chinese deepfake scam"
+  - "China pharmaceutical supply chain"
+  - "China drug exports FDA"
+  - "China Meta AI"
+  - "China data center investment"
+  - "Chinese AI chip data center"
+
+definition: |
+  Articles substantively about China's activities, influence, or involvement
+  within the four topic areas above: Chinese AI-enabled fraud operations,
+  Chinese pharmaceutical supply chains/data/policy, Chinese activity relating
+  to AI and platform companies, and Chinese investment in or control of data
+  center and compute infrastructure. This pillar is a TOPIC filter, held to
+  the exact same factual sourcing and relevance standard as the other four —
+  select articles because they are factually about China's involvement in
+  these areas, NOT because they support any predetermined conclusion. Do not
+  weight, rank, or select for emotional tone, alarm, or any editorial
+  verdict. Significance is judged purely on factual newsworthiness, identical
+  to every other pillar.

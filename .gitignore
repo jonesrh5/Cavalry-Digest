@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+logs/
+
+# Build artifact — regenerated every pipeline run from data/digest.db.
+# The published copy lives in docs/, which IS committed (GitHub Pages source).
+site/dist/
+
+.DS_Store

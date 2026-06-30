@@ -1,0 +1,18 @@
+slug: data_centers
+name: "Data Centers"
+
+topics:
+  - "AI data center construction"
+  - "data center power demand"
+  - "hyperscale data center investment"
+  - "data center energy grid"
+  - "AI data center chip supply"
+  - "data center water demand"
+  - "data center siting local opposition"
+
+definition: |
+  Articles substantively about data center infrastructure: construction and
+  expansion, energy/power and water demand, ownership and investment, supply
+  chain (chips, cooling, grid), siting and local impact, and the
+  strategic/economic stakes of compute capacity. Must center on data center
+  infrastructure.

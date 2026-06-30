@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Cavalry News Digest — AI Fraud, Pharma, Meta, Data Centers, China{% endblock %}
+{% block content %}
+<section class="intro">
+  <p>Automated monitoring across five areas, refreshed every two hours. Each headline links to the original reporting; the line beneath it is our own one-sentence summary.</p>
+</section>
+
+<div class="pillar-grid">
+  {% for pillar in pillars %}
+  <section class="pillar-card">
+    <h2><a href="{{ root }}pillar/{{ pillar.slug }}.html">{{ pillar.name }}</a></h2>
+    {% if pillar.entries %}
+      <ul class="item-list">
+        {% for item in pillar.entries %}
+        <li class="item">
+          {% if item.high_significance %}<span class="badge">HIGH SIGNIFICANCE</span>{% endif %}
+          <a class="item-title" href="{{ item.url }}" rel="noopener noreferrer">{{ item.title }}</a>
+          <p class="item-summary">{{ item.summary }}</p>
+          <p class="item-meta">{{ item.source }} &middot; {{ item.published_display }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      <a class="view-all" href="{{ root }}pillar/{{ pillar.slug }}.html">View all {{ pillar.name }} →</a>
+    {% else %}
+      <p class="empty-state">No items yet.</p>
+    {% endif %}
+  </section>
+  {% endfor %}
+</div>
+{% endblock %}
