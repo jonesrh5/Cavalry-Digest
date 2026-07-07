@@ -36,6 +36,12 @@ fortune.com
 businessinsider.com
 marketwatch.com
 economist.com
+barrons.com
+morningstar.com
+investopedia.com
+thestreet.com
+kiplinger.com
+pionline.com
 
 # ── Reputable technology press ────────────────────────────────────────────────
 wired.com
@@ -77,3 +83,25 @@ spglobal.com
 hrdive.com
 shrm.org
 bls.gov
+
+# ── Major US regional newspapers ─────────────────────────────────────────────
+chicagotribune.com
+bostonglobe.com
+seattletimes.com
+startribune.com
+denverpost.com
+miamiherald.com
+dallasnews.com
+statesman.com
+sfchronicle.com
+inquirer.com
+newsday.com
+baltimoresun.com
+houstonchronicle.com
+ajc.com
+oregonlive.com
+cleveland.com
+stltoday.com
+tampabay.com
+sun-sentinel.com
+azcentral.com
