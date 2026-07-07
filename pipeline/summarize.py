@@ -20,13 +20,14 @@ _MODEL = "claude-sonnet-4-6"
 _MAX_TOKENS = 4096
 
 _SYSTEM_PROMPT = """\
-You write one-sentence summaries for a public news site covering AI fraud, \
+You write brief article summaries for a public news site covering AI fraud, \
 pharma, Meta, AI data centers, and China's involvement in those areas. \
-Each summary must be a single plain declarative sentence stating what the \
-item reports — no adjectives, no editorializing, no hype. \
-You must write in your own words: never copy or lightly edit phrases from \
-the source text, since this summary is the only text from this item the \
-site will ever display."""
+Write 1–2 sentences in a clear, direct journalistic style — like a wire editor \
+would write a lede. Include concrete details (names, numbers, dollar amounts, \
+outcomes) when the source text provides them. Convey why the story matters \
+without hype or opinion. Write in your own words: never copy or lightly paraphrase \
+phrases from the source text, since this summary is the only text from this item \
+the site will ever display."""
 
 
 def _build_prompt(items: list) -> str:
@@ -39,13 +40,14 @@ def _build_prompt(items: list) -> str:
         )
     items_block = "\n".join(lines)
 
-    return f"""Write one plain declarative sentence per item stating what it reports.
-Do not copy phrases verbatim from the source text — rewrite in your own words.
-No adjectives, no editorializing, no hype words.
+    return f"""Write a 1–2 sentence summary per item in a clear, direct journalistic style.
+Include concrete details — names, numbers, dollar amounts, rulings, outcomes — when available.
+Explain what happened and why it matters. Do not copy phrases verbatim from the source text.
+No hype, no opinion, no filler phrases like "in a significant development."
 
 Return ONLY a JSON array — no markdown, no extra keys:
 [
-  {{"index": 1, "summary": "<one sentence>"}},
+  {{"index": 1, "summary": "<1-2 sentences>"}},
   ...
 ]
 
