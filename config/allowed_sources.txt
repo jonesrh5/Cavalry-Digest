@@ -84,24 +84,71 @@ hrdive.com
 shrm.org
 bls.gov
 
-# ── Major US regional newspapers ─────────────────────────────────────────────
-chicagotribune.com
-bostonglobe.com
-seattletimes.com
-startribune.com
-denverpost.com
-miamiherald.com
-dallasnews.com
-statesman.com
-sfchronicle.com
-inquirer.com
+# ── US regional newspapers — Northeast ───────────────────────────────────────
+nypost.com
 newsday.com
+bostonglobe.com
+bostonherald.com
+inquirer.com
+post-gazette.com
 baltimoresun.com
-houstonchronicle.com
+courant.com
+pressherald.com
+unionleader.com
+washingtontimes.com
+richmond.com
+pilotonline.com
+
+# ── US regional newspapers — Southeast ───────────────────────────────────────
 ajc.com
-oregonlive.com
-cleveland.com
-stltoday.com
-tampabay.com
+miamiherald.com
 sun-sentinel.com
+tampabay.com
+orlandosentinel.com
+charlotteobserver.com
+newsobserver.com
+postandcourier.com
+tennessean.com
+commercialappeal.com
+courier-journal.com
+nola.com
+
+# ── US regional newspapers — Midwest ─────────────────────────────────────────
+chicagotribune.com
+suntimes.com
+freep.com
+detroitnews.com
+cleveland.com
+dispatch.com
+enquirer.com
+jsonline.com
+startribune.com
+stltoday.com
+kansascity.com
+omaha.com
+indystar.com
+
+# ── US regional newspapers — South & Texas ───────────────────────────────────
+dallasnews.com
+houstonchronicle.com
+star-telegram.com
+expressnews.com
+statesman.com
+tulsaworld.com
+oklahoman.com
+
+# ── US regional newspapers — Mountain & West ─────────────────────────────────
 azcentral.com
+denverpost.com
+gazette.com
+sltrib.com
+deseret.com
+azstarnet.com
+rgj.com
+reviewjournal.com
+sfchronicle.com
+mercurynews.com
+sacbee.com
+sandiegouniontribune.com
+seattletimes.com
+oregonlive.com
