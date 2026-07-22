@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Social Pulse — Cavalry News Digest{% endblock %}
+{% block content %}
+<section class="social-pulse-page">
+
+  <div class="social-page-header">
+    <h1>Social Pulse</h1>
+    <p class="social-page-subhead">Most-discussed Reddit posts related to each coverage area, ranked by engagement and recency.</p>
+  </div>
+
+  <div class="social-warning">
+    <span class="social-warning-label">&#9888; Unverified social content</span>
+    This feed surfaces public Reddit discussion — it is <strong>not curated, fact-checked, or editorially vetted</strong>. Posts may contain inaccurate information, opinions, and unverified claims. AI summaries describe what a post discusses, not whether its claims are accurate. Inclusion is not endorsement. Always consult original reporting for any claim that matters.
+  </div>
+
+  {% for pillar in social_pillars %}
+  <section class="social-pillar-section">
+    <h2 class="social-pillar-heading">{{ pillar.name }}</h2>
+    {% if pillar.entries %}
+    <ul class="social-item-list">
+      {% for item in pillar.entries %}
+      <li class="social-item">
+        <a class="social-item-title" href="{{ item.url }}" rel="noopener noreferrer">{{ item.title }}</a>
+        {% if item.summary %}<p class="social-item-summary"><span class="ai-label">AI summary</span> {{ item.summary }}</p>{% endif %}
+        <p class="social-item-meta">
+          r/{{ item.subreddit }}
+          &middot; {{ item.score }} pts
+          &middot; {{ item.num_comments }} comments
+          &middot; {{ item.published_display }}
+        </p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-state">No social items yet for this area.</p>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+</section>
+{% endblock %}

@@ -65,6 +65,20 @@ def _load_items_from_db(pillar_slug: str, limit: int):
     return [_prepare_item(r) for r in rows]
 
 
+def _prepare_social_item(item: dict) -> dict:
+    return {**item, "published_display": _fmt_date(item.get("published_at", ""))}
+
+
+def _load_social_from_db(pillar_slug: str, limit: int) -> list:
+    from pipeline.storage import Store
+    store = Store()
+    try:
+        rows = store.get_recent_social(pillar=pillar_slug, limit=limit)
+    finally:
+        store.close()
+    return [_prepare_social_item(r) for r in rows]
+
+
 def _load_items_from_sample(pillar_slug: str):
     from sample_data import SAMPLE_ITEMS
     rows = [i for i in SAMPLE_ITEMS if i["pillar"] == pillar_slug]
@@ -76,6 +90,8 @@ def build_site(use_sample: bool = False) -> None:
     settings = _load_settings()
     home_n = settings.get("home_items_per_pillar", 5)
     page_limit = settings.get("pillar_page_limit", 500)
+    social_home_n = settings.get("social_items_per_pillar", 5)
+    social_page_limit = settings.get("social_page_limit", 25)
 
     pillars = load_pillars()
     pillar_nav = [{"slug": p["slug"], "name": p["name"]} for p in pillars]
@@ -111,8 +127,25 @@ def build_site(use_sample: bool = False) -> None:
             logger.error("Pillar %s failed while building home page — showing it empty: %s", pillar["slug"], exc)
             home_pillars.append({"slug": pillar["slug"], "name": pillar["name"], "entries": []})
 
+    # ── Social Pulse data ────────────────────────────────────────────────────
+    social_pillars_home = []
+    social_pillars_page = []
+    for pillar in pillars:
+        try:
+            home_items = [] if use_sample else _load_social_from_db(pillar["slug"], social_home_n)
+            page_items = [] if use_sample else _load_social_from_db(pillar["slug"], social_page_limit)
+        except Exception as exc:
+            logger.error("Social Pulse: pillar %s failed while building site — empty: %s", pillar["slug"], exc)
+            home_items, page_items = [], []
+        social_pillars_home.append({"slug": pillar["slug"], "name": pillar["name"], "entries": home_items})
+        social_pillars_page.append({"slug": pillar["slug"], "name": pillar["name"], "entries": page_items})
+
+    has_social = any(p["entries"] for p in social_pillars_home)
+
     index_html = env.get_template("index.html").render(
-        root="", pillars=home_pillars, last_updated=last_updated,
+        root="", pillars=home_pillars,
+        social_pillars=social_pillars_home if has_social else [],
+        last_updated=last_updated,
     )
     (DIST_DIR / "index.html").write_text(index_html)
 
@@ -138,6 +171,12 @@ def build_site(use_sample: bool = False) -> None:
             (DIST_DIR / "pillar" / f"{pillar['slug']}.html").write_text(pillar_html)
         except Exception as exc:
             logger.error("Pillar %s failed while building its page — skipping: %s", pillar["slug"], exc)
+
+    # ── Social Pulse page ────────────────────────────────────────────────────
+    social_html = env.get_template("social_pulse.html").render(
+        root="", pillars=pillar_nav, social_pillars=social_pillars_page, last_updated=last_updated,
+    )
+    (DIST_DIR / "social_pulse.html").write_text(social_html)
 
     # ── About page ───────────────────────────────────────────────────────────
     about_html = env.get_template("about.html").render(

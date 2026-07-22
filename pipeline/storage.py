@@ -66,6 +66,29 @@ class Store:
             "ON items(pillar, published_at DESC)"
         )
         self.conn.execute("""
+            CREATE TABLE IF NOT EXISTS social_items (
+                id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                post_id         TEXT NOT NULL,
+                provider        TEXT NOT NULL DEFAULT 'reddit',
+                pillar          TEXT NOT NULL,
+                title           TEXT NOT NULL,
+                url             TEXT NOT NULL,
+                subreddit       TEXT NOT NULL,
+                score           INTEGER NOT NULL DEFAULT 0,
+                num_comments    INTEGER NOT NULL DEFAULT 0,
+                velocity_score  REAL NOT NULL DEFAULT 0.0,
+                summary         TEXT,
+                published_at    TEXT NOT NULL,
+                fetched_at      TEXT NOT NULL,
+                created_at      TEXT NOT NULL DEFAULT (datetime('now')),
+                UNIQUE(post_id, provider)
+            )
+        """)
+        self.conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_social_pillar_velocity "
+            "ON social_items(pillar, velocity_score DESC)"
+        )
+        self.conn.execute("""
             CREATE TABLE IF NOT EXISTS meta (
                 key   TEXT PRIMARY KEY,
                 value TEXT
@@ -168,8 +191,72 @@ class Store:
         keys = cols.replace(" ", "").split(",")
         return [dict(zip(keys, row)) for row in rows]
 
+    # ── Social items (separate table, separate provider interface) ───────────
+
+    def is_new_social(self, post_id: str, provider: str = "reddit") -> bool:
+        row = self.conn.execute(
+            "SELECT 1 FROM social_items WHERE post_id = ? AND provider = ?",
+            (post_id, provider),
+        ).fetchone()
+        return row is None
+
+    def save_social_item(self, item: dict) -> None:
+        """
+        Persist a scored + summarized social post. Post body text must NOT be
+        passed — there is no column for it, matching the same copyright-safe
+        constraint as the news items table.
+        """
+        now = datetime.now(timezone.utc).isoformat()
+        try:
+            self.conn.execute(
+                """
+                INSERT INTO social_items
+                    (post_id, provider, pillar, title, url, subreddit, score,
+                     num_comments, velocity_score, summary, published_at, fetched_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    item["post_id"],
+                    item.get("provider", "reddit"),
+                    item["pillar"],
+                    item["title"],
+                    item["url"],
+                    item["subreddit"],
+                    item.get("score", 0),
+                    item.get("num_comments", 0),
+                    item.get("velocity_score", 0.0),
+                    item.get("summary", ""),
+                    item["published_at"],
+                    item.get("fetched_at", now),
+                ),
+            )
+            self.conn.commit()
+        except sqlite3.IntegrityError:
+            pass  # already stored from a prior run
+
+    def get_recent_social(self, pillar: str = None, limit: int = 25) -> list:
+        """Returns social items ordered by velocity score desc, optionally filtered by pillar."""
+        cols = (
+            "post_id, provider, pillar, title, url, subreddit, score, "
+            "num_comments, velocity_score, summary, published_at, fetched_at"
+        )
+        if pillar:
+            rows = self.conn.execute(
+                f"SELECT {cols} FROM social_items WHERE pillar = ? "
+                f"ORDER BY velocity_score DESC LIMIT ?",
+                (pillar, limit),
+            ).fetchall()
+        else:
+            rows = self.conn.execute(
+                f"SELECT {cols} FROM social_items ORDER BY velocity_score DESC LIMIT ?",
+                (limit,),
+            ).fetchall()
+        keys = cols.replace(" ", "").split(",")
+        return [dict(zip(keys, row)) for row in rows]
+
     def reset(self) -> None:
         self.conn.execute("DELETE FROM items")
+        self.conn.execute("DELETE FROM social_items")
         self.conn.execute("DELETE FROM meta")
         self.conn.commit()
 

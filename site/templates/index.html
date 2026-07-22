@@ -27,4 +27,36 @@
   </section>
   {% endfor %}
 </div>
+
+{% if social_pillars %}
+<section class="social-pulse-preview">
+  <div class="social-preview-header">
+    <div>
+      <h2 class="social-preview-title">Social Pulse</h2>
+      <p class="social-preview-subhead">Most-discussed Reddit posts · ranked by engagement &amp; recency</p>
+    </div>
+    <a class="view-all" href="{{ root }}social_pulse.html">View all →</a>
+  </div>
+  <div class="social-warning-inline">
+    <span class="social-warning-label">Unverified</span> Public Reddit discussion — not curated, fact-checked, or editorially vetted.
+  </div>
+  <div class="social-grid">
+    {% for pillar in social_pillars %}
+    {% if pillar.entries %}
+    <section class="social-card">
+      <h3 class="social-card-heading">{{ pillar.name }}</h3>
+      <ul class="social-item-list">
+        {% for item in pillar.entries %}
+        <li class="social-item">
+          <a class="social-item-title" href="{{ item.url }}" rel="noopener noreferrer">{{ item.title }}</a>
+          <p class="social-item-meta">r/{{ item.subreddit }} &middot; {{ item.score }} pts &middot; {{ item.num_comments }} comments</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
 {% endblock %}

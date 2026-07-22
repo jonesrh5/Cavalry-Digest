@@ -44,6 +44,14 @@ def load_settings() -> dict:
         return yaml.safe_load(f)
 
 
+def _load_reddit_sources() -> dict:
+    path = BASE / "config" / "reddit_sources.yaml"
+    if not path.exists():
+        return {}
+    with open(path) as f:
+        return yaml.safe_load(f) or {}
+
+
 def run_pipeline(cfg: dict) -> int:
     from pipeline.fetch import fetch_all, load_pillars
     from pipeline.score import apply_source_block_list, score_items
@@ -101,6 +109,9 @@ def run_pipeline(cfg: dict) -> int:
     store.close()
     logger.info("Saved %d new items to %s", saved, "data/digest.db")
 
+    # ── Social Pulse (Reddit) ─────────────────────────────────────────────────
+    _run_social_pipeline(pillars, pillars_by_slug, cfg, api_key)
+
     # ── Optional legacy email (disabled by default) ──────────────────────────
     email_cfg = cfg.get("email", {})
     if email_cfg.get("enabled"):
@@ -126,6 +137,70 @@ def _send_legacy_email(items: list, email_cfg: dict) -> None:
     }
     html, plain = render_digest(items, summary_data, subject)
     send_digest(subject, html, plain, recipients)
+
+
+def _run_social_pipeline(pillars: list, pillars_by_slug: dict, cfg: dict, api_key: str) -> None:
+    """
+    Fetch Reddit posts for each pillar, run them through the same relevance-
+    scoring gate as news articles, optionally summarize, then store.
+    One failing pillar does not abort the rest. Missing credentials skip
+    the whole step with a logged warning.
+    """
+    from pipeline.social.reddit import RedditProvider
+    from pipeline.score import score_items
+    from pipeline.summarize import summarize_items
+    from pipeline.storage import Store
+
+    provider = RedditProvider()
+    if not provider.available():
+        logger.info("Reddit credentials not set — skipping Social Pulse fetch.")
+        return
+
+    reddit_sources = _load_reddit_sources()
+    threshold = cfg.get("threshold", 5)
+    high_threshold = cfg.get("high_significance_threshold", 8)
+    prescore_limit = cfg.get("social_prescore_limit", 20)
+    per_pillar = cfg.get("social_items_per_pillar", 5)
+
+    store = Store()
+    try:
+        for pillar in pillars:
+            slug = pillar["slug"]
+            try:
+                pillar_reddit_cfg = {"reddit_sources": reddit_sources.get(slug, {})}
+                candidates = provider.fetch_for_pillar(slug, pillar_reddit_cfg)
+
+                new_candidates = [
+                    c for c in candidates if store.is_new_social(c["post_id"], c["provider"])
+                ]
+                if not new_candidates:
+                    logger.info("Social Pulse: no new posts for pillar %s", slug)
+                    continue
+
+                # Score only the top-velocity candidates to limit API cost.
+                top_candidates = new_candidates[:prescore_limit]
+                scored = score_items(top_candidates, pillars_by_slug, api_key, threshold, high_threshold)
+
+                # Summarize the top survivors (capped at per_pillar).
+                top_scored = scored[:per_pillar]
+                summaries: dict = {}
+                try:
+                    summaries = summarize_items(top_scored, api_key)
+                except Exception as exc:
+                    logger.warning("Social summarization failed for %s: %s", slug, exc)
+
+                saved = 0
+                for item in top_scored:
+                    item["summary"] = summaries.get(item["url"], "")
+                    store.save_social_item(item)
+                    saved += 1
+
+                logger.info("Social Pulse: saved %d new items for pillar %s", saved, slug)
+
+            except Exception as exc:
+                logger.error("Social Pulse: pillar %s failed — skipping: %s", slug, exc)
+    finally:
+        store.close()
 
 
 def rebuild_site() -> None:

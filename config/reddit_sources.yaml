@@ -1,0 +1,65 @@
+# Reddit sources for the Social Pulse feed, organized by pillar.
+# subreddits: fetched via hot listing (recent high-engagement posts).
+# terms: searched across all of Reddit (time_filter: last 24h).
+# Edit freely — no code changes needed. Add/remove subreddits or terms and
+# they take effect on the next pipeline run.
+
+ai_fraud:
+  subreddits:
+    - scams
+    - cybersecurity
+    - artificial
+    - technology
+  terms:
+    - deepfake scam
+    - AI fraud
+    - voice cloning scam
+    - AI phishing attack
+
+pharma:
+  subreddits:
+    - pharma
+    - medicine
+    - biotech
+    - health
+  terms:
+    - drug pricing
+    - FDA approval
+    - drug shortage
+    - pharmaceutical recall
+
+meta:
+  subreddits:
+    - technology
+    - facebook
+    - oculus
+    - instagram
+  terms:
+    - Meta Platforms
+    - Zuckerberg policy
+    - Instagram regulation
+    - Facebook antitrust
+
+data_centers:
+  subreddits:
+    - datacenter
+    - hardware
+    - energy
+    - sysadmin
+  terms:
+    - data center construction
+    - AI compute infrastructure
+    - power grid AI demand
+    - hyperscale data center
+
+china:
+  subreddits:
+    - geopolitics
+    - technology
+    - worldnews
+    - China_Debate
+  terms:
+    - China semiconductor chips
+    - China data privacy
+    - China pharma supply chain
+    - China AI technology

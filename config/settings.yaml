@@ -13,6 +13,15 @@ home_items_per_pillar: 5
 # How many items a pillar page lists before truncating (newest first).
 pillar_page_limit: 500
 
+# Social Pulse — Reddit feed displayed separately from vetted news.
+# social_prescore_limit: max candidates sent to the scoring API per pillar
+#   (pre-filtered by velocity score; reduces Claude Haiku cost).
+# social_items_per_pillar: max items saved to DB and shown per pillar.
+# social_page_limit: max items shown on the full Social Pulse page per pillar.
+social_items_per_pillar: 5
+social_prescore_limit: 20
+social_page_limit: 25
+
 # Legacy email digest — disabled. The renderer/sender in email/ are kept
 # so this can be flipped on later (e.g. a digest that links back to the
 # site) without a rewrite. Toggling `enabled: true` is the only change
