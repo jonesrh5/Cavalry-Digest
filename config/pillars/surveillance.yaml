@@ -1,0 +1,42 @@
+slug: surveillance
+name: "Surveillance"
+topics:
+  - "Flock Safety camera"
+  - "license plate reader surveillance"
+  - "mass surveillance technology"
+  - "facial recognition law enforcement"
+  - "automated license plate recognition ALPR"
+  - "police surveillance network"
+  - "surveillance camera privacy"
+  - "real-time location tracking government"
+  - "ShotSpotter surveillance"
+  - "Ring doorbell police data"
+definition: |
+  Score this item HIGH (7-10) if it directly covers:
+  - Flock Safety cameras or similar automated license plate reader (ALPR/LPR)
+    networks deployed by law enforcement or private communities
+  - Government or law enforcement acquisition, deployment, or use of mass
+    surveillance infrastructure (cameras, sensors, acoustic detectors, drones)
+  - Facial recognition technology used by police, government agencies, or
+    private entities for public surveillance
+  - Legal, legislative, or regulatory challenges to surveillance technology
+    (court cases, city bans, state laws, FOIA disclosures)
+  - Privacy and civil liberties implications of surveillance networks —
+    studies, audits, investigative reporting on scope or misuse
+  - Data sharing between surveillance technology vendors and law enforcement
+    agencies (including fusion centers, interstate data sharing)
+  - Real-time tracking systems: cell-site simulators (Stingrays), geofence
+    warrants, reverse-location search warrants
+  - Corporate surveillance products marketed to law enforcement or HOAs
+    (Flock, Motorola, Axon, Clearview AI, Amazon Ring partnerships, etc.)
+
+  Score MEDIUM (4-6) if it covers:
+  - General privacy technology news with a law enforcement or government angle
+  - Biometric data collection (face, gait, voice) by public-sector entities
+  - Smart city sensor networks with surveillance implications
+
+  Score LOW (0-3) if it is:
+  - Private consumer tracking with no law enforcement connection
+  - Cybersecurity surveillance (corporate espionage, nation-state hacking)
+    unless it involves domestic public surveillance infrastructure
+  - General crime news without a surveillance technology angle
